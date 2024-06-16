@@ -1,0 +1,44 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f3f4f6;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.border-gray-300 {
+  border-color: #d1d5db;
+}
+
+.border-red-500 {
+  border-color: #f87171;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+.text-red-500 {
+  color: #f87171;
+}
+
+.focus\:border-primary {
+  border-color: #3b82f6;
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.text-primary {
+  color: #3b82f6;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}

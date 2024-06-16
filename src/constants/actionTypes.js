@@ -1,0 +1,10 @@
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const ADMIN_LOGIN = "ADMIN_LOGIN";
+export const CREATE = "CREATE";
+export const DELETE = "DELETE";
+export const FETCH_ALL = "FETCH_ALL";
+export const ADMIN_LOGIN_FAILURE = "ADMIN_LOGIN_FAILURE";
+export const LOGOUT = "LOGOUT";

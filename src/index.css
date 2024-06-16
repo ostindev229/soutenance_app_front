@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rum+Raisin&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: white;
+}
+
+li {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+}
+
+li:hover::before {
+  position: absolute;
+  content: "";
+  height: 4px;
+  width: 100%;
+  background: #2a68ff;
+  right: 0;
+  bottom: -10px;
+  color: #2a68ff;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.card {
+  background: #000;
+}
+
+.custom-loader {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side, #0000 40%, #000 41%);
+  background: linear-gradient(0deg, #766df480 50%, #766df4ff 0) center/8px 100%,
+    linear-gradient(90deg, #766df440 50%, #766df4bf 0) center/100% 8px;
+  background-repeat: no-repeat;
+  animation: s3 1s infinite steps(12);
+}
+.custom-loader::before,
+.custom-loader::after {
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.915;
+  transform: rotate(30deg);
+}
+.custom-loader::after {
+  opacity: 0.83;
+  transform: rotate(60deg);
+}
+
+@keyframes s3 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.loaders {
+  font-family: "Rum Raisin", sans-serif;
+  width: 100%;
+  height: 100%;
+}
+.loaders text {
+  animation: stroke 2s infinite alternate;
+  stroke-width: 2;
+  stroke: #365fa0;
+  font-size: 100px;
+}
+@keyframes stroke {
+  0% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: rgba(54, 95, 160, 1);
+    stroke-dashoffset: 25%;
+    stroke-dasharray: 0 50%;
+    stroke-width: 2;
+  }
+  70% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: rgba(54, 95, 160, 1);
+  }
+  80% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: rgba(54, 95, 160, 1);
+    stroke-width: 3;
+  }
+  100% {
+    fill: rgba(72, 138, 204, 1);
+    stroke: rgba(54, 95, 160, 0);
+    stroke-dashoffset: -25%;
+    stroke-dasharray: 50% 0;
+    stroke-width: 0;
+  }
+}
+
+.wrapper {
+  background-color: #ffffff;
+}
+
+.testimonials-background {
+  position: relative;
+  background-image: url("../src/assets/thirdman.jpg"); /* Replace with the correct path */
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 51, 0.7); /* Blue night transparent overlay */
+  z-index: 1;
+}
+
+.testimonials-content {
+  position: relative;
+  z-index: 2;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: white; /* Ensure the arrows are visible */
+}
+
+.slick-dots li button:before {
+  color: white; /* Ensure the dots are visible */
+  font-size: 16px; /* Increase dot size */
+}
+
+.slick-dots li.slick-active button:before {
+  color: white; /* Ensure the active dot is visible */
+  font-size: 16px; /* Increase active dot size */
+}
+
+/**********Whats'app***********/
+.whatsapp-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: white;
+  background-color: #25d366;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+}
+.whatsapp-button svg {
+  margin-right: 10px;
+}
+
+/* Styles pour le modal et l'overlay */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: 90%;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 999;
+}
