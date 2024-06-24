@@ -2,8 +2,17 @@ import { useState, useRef } from "react";
 import moment from "moment";
 import { BiTimeFive } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { Button, Box, Flex, Text, Image } from "@chakra-ui/react";
-import { toast } from "react-toastify";
+import {
+  Button,
+  Box,
+  Flex,
+  Text,
+  Image,
+  VStack,
+  HStack,
+} from "@chakra-ui/react";
+import Toast from "./Toast";
+import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import {
   AlertDialog,
@@ -27,10 +36,7 @@ const JobDetailCard = (prop) => {
 
   const handlePostulateClick = () => {
     if (!Object.keys(post).includes("isApplied")) {
-      toast.error("Connectez-vous", {
-        position: "top-right",
-        autoClose: 8000,
-      });
+      toast(<Toast type="error" message="Connectez-vous pour postuler !" />);
       navigate("/signin");
       return;
     }
@@ -43,12 +49,20 @@ const JobDetailCard = (prop) => {
   const handleDeleteClick = async () => {
     try {
       await dispatch(deletePostById(post._id));
-      toast.success("L'offre a été supprimée avec succès");
+      toast(
+        <Toast type="success" message="L'offre a été supprimée avec succès" />
+      );
+
       if (typeof prop.onClose === "function") {
         prop.onClose();
       }
     } catch (error) {
-      toast.error("Erreur lors de la suppression de l'offre");
+      toast(
+        <Toast
+          type="error"
+          message="Erreur lors de la suppression de l'offre"
+        />
+      );
     }
   };
 
@@ -66,6 +80,7 @@ const JobDetailCard = (prop) => {
 
   const handleCloseUpdateModal = () => {
     setIsUpdateModalOpen(false);
+    prop.onClose();
   };
 
   const handleDisplayRightButton = () => {
@@ -107,8 +122,13 @@ const JobDetailCard = (prop) => {
             mr={8}
           />
         </Box>
-        <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
-          <Flex justify="space-between" align="center" mb={4}>
+        <VStack
+          align="flex-start"
+          spacing={4}
+          mt={{ base: 4, md: 0 }}
+          ml={{ md: 6 }}
+        >
+          <HStack justify="space-between" align="center" width="100%">
             <Text as="h1" fontSize="2xl" fontWeight="bold">
               {post.category}
             </Text>
@@ -116,14 +136,14 @@ const JobDetailCard = (prop) => {
               {moment(post.createdAt).fromNow()}
               <BiTimeFive className="text-2xl ml-2 shadow-md" />
             </Flex>
-          </Flex>
-          <Text fontSize="lg" color="gray.500" mb={4}>
+          </HStack>
+          <Text fontSize="lg" color="gray.500">
             {post.location}
           </Text>
           <Text fontSize="md" color="gray.600" borderTop="2px" pt={4}>
             {post.description}
           </Text>
-          <Box mt={4} spaceY={2}>
+          <Box spaceY={2}>
             <Text fontSize="lg" fontWeight="bold">
               Compétences recherchées:{" "}
               <Text as="span" fontWeight="normal">
@@ -143,9 +163,9 @@ const JobDetailCard = (prop) => {
               </Text>
             </Text>
           </Box>
-          <Box mt={6}>{handleDisplayRightButton()}</Box>
+          {handleDisplayRightButton()}
           {prop.isRecruiter && (
-            <Flex gap={4} mt={4}>
+            <HStack spacing={4} mt={4}>
               <Button
                 colorScheme="blue"
                 onClick={handleUpdateClick}
@@ -160,9 +180,9 @@ const JobDetailCard = (prop) => {
               >
                 Supprimer
               </Button>
-            </Flex>
+            </HStack>
           )}
-        </Box>
+        </VStack>
       </Flex>
 
       <AlertDialog

@@ -37,74 +37,6 @@ li:hover::before {
   background: #000;
 }
 
-.custom-loader {
-  width: 100px;
-  height: 100px;
-  display: grid;
-  border-radius: 50%;
-  -webkit-mask: radial-gradient(farthest-side, #0000 40%, #000 41%);
-  background: linear-gradient(0deg, #766df480 50%, #766df4ff 0) center/8px 100%,
-    linear-gradient(90deg, #766df440 50%, #766df4bf 0) center/100% 8px;
-  background-repeat: no-repeat;
-  animation: s3 1s infinite steps(12);
-}
-.custom-loader::before,
-.custom-loader::after {
-  content: "";
-  grid-area: 1/1;
-  border-radius: 50%;
-  background: inherit;
-  opacity: 0.915;
-  transform: rotate(30deg);
-}
-.custom-loader::after {
-  opacity: 0.83;
-  transform: rotate(60deg);
-}
-
-@keyframes s3 {
-  100% {
-    transform: rotate(1turn);
-  }
-}
-
-.loaders {
-  font-family: "Rum Raisin", sans-serif;
-  width: 100%;
-  height: 100%;
-}
-.loaders text {
-  animation: stroke 2s infinite alternate;
-  stroke-width: 2;
-  stroke: #365fa0;
-  font-size: 100px;
-}
-@keyframes stroke {
-  0% {
-    fill: rgba(72, 138, 204, 0);
-    stroke: rgba(54, 95, 160, 1);
-    stroke-dashoffset: 25%;
-    stroke-dasharray: 0 50%;
-    stroke-width: 2;
-  }
-  70% {
-    fill: rgba(72, 138, 204, 0);
-    stroke: rgba(54, 95, 160, 1);
-  }
-  80% {
-    fill: rgba(72, 138, 204, 0);
-    stroke: rgba(54, 95, 160, 1);
-    stroke-width: 3;
-  }
-  100% {
-    fill: rgba(72, 138, 204, 1);
-    stroke: rgba(54, 95, 160, 0);
-    stroke-dashoffset: -25%;
-    stroke-dasharray: 50% 0;
-    stroke-width: 0;
-  }
-}
-
 .wrapper {
   background-color: #ffffff;
 }
@@ -183,4 +115,107 @@ li:hover::before {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 999;
+}
+.loader {
+  --R: 30px;
+  --g1: #2a68ff 96%, #0000;
+  --g2: #eeeeee 96%, #0000;
+  width: calc(2 * var(--R));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  -webkit-mask: linear-gradient(#000 0 0);
+  animation: l30 2s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  width: 50%;
+  background: radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) + 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) + 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g2))
+      calc(var(--R) + 0.5 * var(--R) - var(--R))
+      calc(var(--R) - 0.866 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1)) 0 calc(-1 * var(--R)),
+    radial-gradient(farthest-side, var(--g2))
+      calc(var(--R) - 0.5 * var(--R) - var(--R))
+      calc(var(--R) - 0.866 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) - 0.866 * var(--R) - var(--R))
+      calc(var(--R) - 0.5 * var(--R) - var(--R)),
+    radial-gradient(farthest-side, var(--g2)) calc(-1 * var(--R)) 0,
+    radial-gradient(farthest-side, var(--g1))
+      calc(var(--R) - 0.866 * var(--R) - var(--R))
+      calc(var(--R) + 0.5 * var(--R) - var(--R));
+  background-size: calc(2 * var(--R)) calc(2 * var(--R));
+  background-repeat: no-repeat;
+}
+.loader::after {
+  transform: rotate(180deg);
+  transform-origin: right;
+}
+
+@keyframes l30 {
+  100% {
+    transform: rotate(-1turn);
+  }
+}
+
+.toast {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  text-align: start;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  margin: 10px;
+}
+
+.toast-success {
+  background-color: #2f855a;
+  border-left: 5px solid #4caf50;
+}
+
+.toast-error {
+  background-color: #c53030;
+  border-left: 5px solid #f44336;
+}
+
+.icon {
+  margin-right: 12px;
+}
+
+.icon-success {
+  color: #fff;
+  font-size: 30px;
+}
+
+.icon-error {
+  color: #fff;
+  font-size: 30px;
+}
+
+.message {
+  flex: 1;
+  font-size: 17px;
+  color: #fff;
+  font-weight: 900;
+  overflow-wrap: break-word;
+}
+.input-err {
+  border: 1px solid red;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
 }

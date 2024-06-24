@@ -7,6 +7,9 @@ export const signup = (formData) => {
   return api.signUp(formData);
 };
 // Login Action
+export const resendOtpAction = (phoneNumber) => {
+  return api.resendOTP(phoneNumber);
+};
 
 export const login = (formData) => {
   return api.signIn(formData);

@@ -4,6 +4,7 @@ import * as actionTypes from "../constants/actionTypes";
 import { Link } from "react-router-dom";
 import Logo from "../images/logo/logo.svg";
 import logoauth from "../images/logoauth.svg";
+import Toast from "./Toast";
 import {
   Button,
   FormControl,
@@ -17,8 +18,7 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useDispatch } from "react-redux";
 import { signup } from "../actions/auth";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "sonner";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -50,10 +50,7 @@ const SignUp = () => {
     const emptyFields = requiredFields.filter((field) => !formData[field]);
 
     if (emptyFields.length > 0) {
-      toast.error("Please fill in all required fields.", {
-        position: "top-right",
-        autoClose: 8000,
-      });
+      toast(<Toast type="error" message="Remplissez touts les champs." />);
       return;
     }
 
@@ -61,14 +58,12 @@ const SignUp = () => {
 
     signup(formData)
       .then((res) => {
+        toast(<Toast type="success" message="Compte crée avec succès" />);
         dispatch({
           type: actionTypes.SIGNUP_SUCCESS,
           payload: res.data,
         });
-        toast.success("Signup successful", {
-          position: "top-right",
-          autoClose: 8000,
-        });
+
         setLoading(false);
         navigate("/signin");
       })
@@ -77,10 +72,7 @@ const SignUp = () => {
           type: actionTypes.SIGNUP_FAILURE,
           payload: { error: error.response.data.errors },
         });
-        toast.error("Signup failed", {
-          position: "top-right",
-          autoClose: 8000,
-        });
+        toast.error("Signup failed");
         setLoading(false);
         setErrors(error.response.data.errors);
       });
@@ -126,6 +118,7 @@ const SignUp = () => {
                     <input
                       type="email"
                       name="email"
+                      placeholder="Enter your email"
                       label="Email"
                       value={formData.email}
                       onChange={handleChange}
@@ -176,6 +169,7 @@ const SignUp = () => {
                   <div className="relative">
                     <input
                       name="username"
+                      placeholder="Enter your Username"
                       label="Username"
                       value={formData.username}
                       onChange={handleChange}
@@ -245,7 +239,6 @@ const SignUp = () => {
                   </p>
                 </div>
               </form>
-              <ToastContainer />
             </div>
           </div>
         </div>

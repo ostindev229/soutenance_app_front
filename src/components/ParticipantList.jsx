@@ -2,6 +2,7 @@ import { getPostulatesByJobOfferId } from "../actions/postulate";
 import { useEffect, useState } from "react";
 import Participant from "./Participant";
 import { validateJobApplicationAction } from "../actions/postulate";
+import { rejectJobApplicationAction } from "../actions/postulate";
 
 function ParticipantList(prop) {
   const [participants, setParticipants] = useState([]);
@@ -44,9 +45,11 @@ function ParticipantList(prop) {
         name={participant.name}
         applyDate={participant.applyDate}
         selectedCvFile={participant.selectedCvFile}
-        candidateId={participant._id}
+        candidateId={participant.candidateId}
         jobOfferId={prop.jobOfferId}
         validateJobApplicationAction={validateJobApplicationAction}
+        rejectJobApplicationAction={rejectJobApplicationAction}
+        id={participant._id}
         status={participant.status}
         contact={participant.contact}
       />

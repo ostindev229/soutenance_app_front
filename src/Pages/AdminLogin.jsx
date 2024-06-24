@@ -6,7 +6,8 @@ import logoauth from "../images/logoauth.svg";
 import { Button, CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { adminLogin } from "../actions/auth";
-import { toast } from "react-toastify";
+import Toast from "../components/Toast";
+import { toast } from "sonner";
 import { userLocalStorage } from "../utils/localStorage";
 import { useNavigate } from "react-router-dom";
 
@@ -36,10 +37,7 @@ const AdminLogin = () => {
         ", "
       )}.`;
       setErrors({ general: errorMessage });
-      toast.error(errorMessage, {
-        position: "top-right",
-        autoClose: 8000,
-      });
+      toast(<Toast type="error" message={errorMessage} />);
       return;
     }
 
@@ -54,10 +52,7 @@ const AdminLogin = () => {
         userLocalStorage(res.data.token);
         navigate("/verification");
 
-        toast.success("Login successfully", {
-          position: "top-right",
-          autoClose: 8000,
-        });
+        toast(<Toast type="success" message="Vous ètes connectés!" />);
         setLoading(false);
       })
       .catch((error) => {
@@ -66,10 +61,7 @@ const AdminLogin = () => {
           type: actionTypes.ADMIN_LOGIN_FAILURE,
           payload: { error: error },
         });
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 8000,
-        });
+        toast(<Toast type="error" message={errorMessage} />);
         setLoading(false);
         setErrors({ general: errorMessage });
       });

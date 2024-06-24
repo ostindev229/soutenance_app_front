@@ -8,6 +8,7 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { TextField, Typography, Paper, Grid } from "@material-ui/core";
 import FileBase from "react-file-base64";
@@ -15,21 +16,50 @@ import { updatePost } from "../actions/jobs";
 import { useDispatch } from "react-redux";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import Toast from "./Toast";
+import { toast } from "sonner";
 
 const UpdateForm = (prop) => {
   const [updatedData, setUpdatedData] = useState(prop.post);
   console.log(updatedData);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       await dispatch(updatePost(prop.post._id, updatedData));
 
       prop.onClose();
+
+      toast(
+        <Toast type="success" message="L'offre a été modifiée avec succès!" />
+      );
     } catch (error) {
+      <Toast
+        type="error"
+        message="Erreur lors de la mise à jour de l'offre!"
+      />;
+
       console.log(error);
     }
+    setLoading(false);
+  };
+
+  const handleClear = () => {
+    setUpdatedData(() => ({
+      creator: "",
+      category: "",
+      description: "",
+      location: "",
+      selectedFile: "",
+      finalDate: "",
+      typeTemps: "",
+      totalParticipate: "",
+      competenceSearch: "",
+    }));
   };
 
   return (
@@ -160,13 +190,15 @@ const UpdateForm = (prop) => {
         <Button
           type="submit"
           variant="contained"
-          className="mr-4 bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          className="mr-4 mt-6 bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          disabled={loading}
         >
-          Submit
+          {loading ? <CircularProgress size={5} color="white" /> : "Submit"}
         </Button>
         <Button
           variant="contained"
-          className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded"
+          className="bg-red-500 mt-6 hover:bg-red-700 text-white px-4 py-2 rounded"
+          onClick={handleClear}
         >
           Clear
         </Button>

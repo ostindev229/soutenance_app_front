@@ -8,12 +8,14 @@ import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useDispatch } from "react-redux";
 import { login } from "../actions/auth";
-import { toast } from "react-toastify";
 import { userLocalStorage } from "../utils/localStorage";
 import { setFormDataInState } from "../reducers/userReducers";
 import { setUserInState } from "../reducers/userReducers";
 import useRedirectToRightUserDahboard from "../hooks/useRedirectToRightUserDahboard";
 import { setIsLoading } from "../reducers/userReducers";
+import Toast from "./Toast";
+import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -43,14 +45,13 @@ const Login = () => {
     const emptyFields = requiredFields.filter((field) => !formData[field]);
 
     if (emptyFields.length > 0) {
-      const errorMessage = `Please fill in all required fields: ${emptyFields.join(
+      const errorMessage = `Veuillez obligatoirement remplir les champs : ${emptyFields.join(
         ", "
       )}.`;
       setErrors({ general: errorMessage });
-      toast.error(errorMessage, {
-        position: "top-right",
-        autoClose: 8000,
-      });
+
+      toast(<Toast type="error" message={errorMessage} />);
+
       return;
     }
 
@@ -69,11 +70,20 @@ const Login = () => {
         const user = res.data.user;
         console.log("USER LOGIN", user);
         dispatch(setUserInState(user));
+
+        toast(
+          <Toast
+            type="success"
+            message={
+              user.isVerified
+                ? "Connexion réussie !"
+                : "Pour des raisons de sécurité, veuillez saisir le code que nous vous avons envoyé par SMS pour continuer. !"
+            }
+          />
+        );
+
         navigateToRightUserDashboard(user);
-        toast.success("Login successfully", {
-          position: "top-right",
-          autoClose: 8000,
-        });
+
         setLoading(false); // Fin du chargement
       })
       .catch((error) => {
@@ -84,10 +94,8 @@ const Login = () => {
           type: actionTypes.LOGIN_FAILURE,
           payload: { error: error },
         });
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 8000,
-        });
+        toast(<Toast type="error" message={errorMessage} />);
+
         setLoading(false); // Fin du chargement
         setErrors({ general: errorMessage });
       });

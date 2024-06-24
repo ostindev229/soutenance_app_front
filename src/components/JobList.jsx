@@ -13,7 +13,7 @@ const JobList = (prop) => {
 
   return (
     <>
-      <div className="font-poppins p-[37px] rounded-lg grid grid-cols-1 md:grid-cols-4 gap-[20px]">
+      <div className="font-poppins rounded-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {prop.posts.map((post) => (
           <InfoJobCard
             key={post._id}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
@@ -8,6 +8,11 @@ import Testimonial from "../components/Testimonial";
 import { getAllPosts } from "../actions/jobs";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import UserDescription from "../components/Description";
+
+import Footer from "../components/Footer";
+import Loader from "../components/Loader"; // Import the Loader component
+import ScrollingMessage from "../components/ScrollingMessage"; // Import the ScrollingMessage component
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 100, scale: 0.8 },
@@ -47,14 +52,29 @@ function Home() {
   const allPosts = useSelector((state) => state.posts.posts);
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
+  const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    dispatch(getAllPosts());
-  }, [dispatch]);
+    setLoading(true);
+    setError(null);
+    const fetchData = async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 3000)); // Ensure loader shows for at least 3 seconds
+        await dispatch(getAllPosts());
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        setError(err.message);
+      }
+    };
+    fetchData();
+  }, [dispatch, refresh]);
 
   return (
     <div>
-      <Navbar />
+      <Navbar setRefresh={setRefresh} />
 
       <AnimatedSection>
         <Search setJobs={(searchedJob) => setPosts(() => [...searchedJob])} />
@@ -67,12 +87,20 @@ function Home() {
         </div>
       </AnimatedSection>
       <AnimatedSection>
-        <JobList
-          posts={posts.length > 0 ? posts : allPosts}
-          showParticipantList={false}
-          postulateBtn={true}
-          isRecruiter={false}
-        />
+        {loading ? (
+          <Loader /> // Show loader while fetching data
+        ) : error ? (
+          <p className="text-center text-red-500">{error}</p>
+        ) : posts.length === 0 && allPosts.length === 0 ? (
+          <ScrollingMessage text="Aucune offre publiée" /> // Use ScrollingMessage component
+        ) : (
+          <JobList
+            posts={posts.length > 0 ? posts : allPosts}
+            showParticipantList={false}
+            postulateBtn={true}
+            isRecruiter={false}
+          />
+        )}
       </AnimatedSection>
       <AnimatedSection>
         <Value />
@@ -80,6 +108,12 @@ function Home() {
       <AnimatedSection>
         <Testimonial />
       </AnimatedSection>
+
+      <AnimatedSection>
+        <UserDescription />
+      </AnimatedSection>
+
+      <Footer />
     </div>
   );
 }

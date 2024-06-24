@@ -5,13 +5,11 @@ import App from "./App.jsx";
 import postsSlice from "./reducers/jobsReducer.js";
 import userSlice from "./reducers/userReducers.js";
 import postulateSlice from "./reducers/postulateReducers.js";
+import { Toaster } from "sonner";
 
 import { configureStore, applyMiddleware, compose } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
 import { Provider } from "react-redux";
-import { ToastContainer } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
 
 const store = configureStore({
   reducer: {
@@ -31,8 +29,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
-
-      <ToastContainer />
+      <Toaster
+        position="top-right"
+        duration={5000}
+        toastOptions={{ unstyled: true }}
+      />
     </Provider>
   </React.StrictMode>
 );

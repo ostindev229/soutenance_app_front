@@ -17,7 +17,8 @@ import {
 import FileBase from "react-file-base64";
 import { makeStyles } from "@material-ui/core/styles";
 import { submitPostulate } from "../actions/postulate";
-import { toast } from "react-toastify";
+import Toast from "./Toast";
+import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -120,13 +121,12 @@ const PostulateJob = () => {
       console.log("Vous aviez postulé avec succes");
       clear();
       navigate("/");
-      toast("Vous aviez postulé avec succès!", {
-        type: "success",
-        position: "top-right",
-        autoClose: "8000",
-      });
+
+      toast(<Toast type="success" message="Vous aviez postulé avec succès" />);
     } catch (err) {
       setLoading(false);
+      toast(<Toast type="error" message={err.message} />);
+
       setErrorMessage(err.message || "An error occurred while submitting.");
     }
   };

@@ -43,7 +43,9 @@ const Index = () => {
 
   return (
     <div className="p-6">
-      <h1 className="font-semibold text-2xl mb-6">Accueil</h1>
+      <h1 className="font-semibold text-2xl md:text-3xl lg:text-3xl mb-6">
+        Tableau de bord
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
         <JobStatsCard
           icon={promotion}
@@ -67,12 +69,14 @@ const Index = () => {
         />
       </div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="font-semibold text-2xl">Mes offres créées</h2>
+        <h2 className="font-semibold text-xl md:text-2xl lg:text-2xl">
+          Mes offres créées
+        </h2>
         <div
           onClick={onOpen}
-          className="rounded-full w-10 h-10 bg-blue-500 flex items-center justify-center cursor-pointer transition-transform duration-200 transform hover:scale-105"
+          className="rounded-full w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-blue-500 flex items-center justify-center cursor-pointer transition-transform duration-200 transform hover:scale-105"
         >
-          <IoAddOutline className="text-white text-2xl" />
+          <IoAddOutline className="text-white text-2xl md:text-3xl lg:text-4xl" />
         </div>
       </div>
       {posts.length === 0 ? (

@@ -3,22 +3,23 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import CustomLoader from "../../components/CustomLoader";
+import CorrectRedirection from "../CorrectRedirection";
 
-const DashboardRecruiter = () => {
+const DashboardEmployer = () => {
   const user = useSelector((state) => state.users.users);
   console.log(user);
 
   const isLoading = useSelector((state) => state.users.isLoading);
   console.log(isLoading);
 
-  const DashboardValue = () => {
+  function _dashboardRecruiter() {
     if (isLoading) {
       return <CustomLoader />;
     } else if (user.role === "employer") {
       return (
         <div className="grid grid-cols-6 bg-[#F3F2F7]">
           <SecondDashBoardSideBar />
-          <div className="pt-[30px] h-[100%] col-span-5 px-[30px]">
+          <div className=" h-[100%] col-span-5 ">
             <Outlet />
           </div>
         </div>
@@ -26,9 +27,13 @@ const DashboardRecruiter = () => {
     } else {
       <Navigate to="/recruiter-dashboard" />;
     }
+  }
+
+  const DashboardValue = () => {
+    return <CorrectRedirection>{_dashboardRecruiter()}</CorrectRedirection>;
   };
 
   return DashboardValue();
 };
 
-export default DashboardRecruiter;
+export default DashboardEmployer;

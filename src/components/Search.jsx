@@ -18,7 +18,6 @@ import { CiLocationOn } from "react-icons/ci";
 
 function Search(prop) {
   const [category, setCategory] = React.useState("");
-
   const [typeTemps, setTypeTemps] = React.useState("");
   const [location, setLocation] = React.useState("");
 
@@ -32,24 +31,27 @@ function Search(prop) {
 
   const handleSearch = async () => {
     const posts = await searchJobByValue(category, typeTemps, location);
-
     prop.setJobs(posts);
   };
 
   return (
     <Box
       sx={{
-        padding: "3rem",
+        padding: { xs: "1rem", sm: "2rem" },
         backgroundColor: "grey.200",
         borderRadius: "10px",
       }}
     >
       <Paper
         component="form"
-        sx={{ padding: "2rem", boxShadow: 3, borderRadius: "8px" }}
+        sx={{
+          padding: { xs: "1rem", sm: "2rem" },
+          boxShadow: 3,
+          borderRadius: "8px",
+        }}
       >
-        <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} md={3}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} sm={6} md={3}>
             <Box
               sx={{
                 display: "flex",
@@ -59,7 +61,7 @@ function Search(prop) {
             >
               <AiOutlineSearch
                 style={{
-                  fontSize: "30px",
+                  fontSize: "24px",
                   marginRight: "8px",
                   color: "#a5a6a6",
                 }}
@@ -77,17 +79,17 @@ function Search(prop) {
                       sx={{ position: "absolute", right: 0 }}
                     >
                       <AiOutlineCloseCircle
-                        style={{ fontSize: "30px", color: "#a5a6a6" }}
+                        style={{ fontSize: "24px", color: "#a5a6a6" }}
                       />
                     </IconButton>
                   ),
                   disableUnderline: true,
-                  sx: { fontSize: "1.2rem", color: "blue" },
+                  sx: { fontSize: "1rem", color: "blue" },
                 }}
               />
             </Box>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <Box
               sx={{
                 display: "flex",
@@ -98,7 +100,7 @@ function Search(prop) {
             >
               <BiTimeFive
                 style={{
-                  fontSize: "30px",
+                  fontSize: "24px",
                   marginRight: "8px",
                   color: "#a5a6a6",
                 }}
@@ -110,9 +112,9 @@ function Search(prop) {
                   displayEmpty
                   disableUnderline
                   sx={{
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                     color: typeTemps ? "blue" : "grey",
-                    ".MuiSelect-icon": { fontSize: "2rem" },
+                    ".MuiSelect-icon": { fontSize: "1.5rem" },
                     ".MuiOutlinedInput-notchedOutline": { border: 0 },
                     "&:before": { borderBottom: 0 },
                     "&:after": { borderBottom: 0 },
@@ -136,13 +138,13 @@ function Search(prop) {
                   sx={{ position: "absolute", right: 0 }}
                 >
                   <AiOutlineCloseCircle
-                    style={{ fontSize: "30px", color: "#a5a6a6" }}
+                    style={{ fontSize: "24px", color: "#a5a6a6" }}
                   />
                 </IconButton>
               )}
             </Box>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <Box
               sx={{
                 display: "flex",
@@ -152,7 +154,7 @@ function Search(prop) {
             >
               <CiLocationOn
                 style={{
-                  fontSize: "30px",
+                  fontSize: "24px",
                   marginRight: "8px",
                   color: "#a5a6a6",
                 }}
@@ -170,12 +172,12 @@ function Search(prop) {
                       sx={{ position: "absolute", right: 0 }}
                     >
                       <AiOutlineCloseCircle
-                        style={{ fontSize: "30px", color: "#a5a6a6" }}
+                        style={{ fontSize: "24px", color: "#a5a6a6" }}
                       />
                     </IconButton>
                   ),
                   disableUnderline: true,
-                  sx: { fontSize: "1.2rem", color: "blue" },
+                  sx: { fontSize: "1rem", color: "blue" },
                 }}
               />
             </Box>
@@ -183,6 +185,7 @@ function Search(prop) {
           <Grid
             item
             xs={12}
+            sm={6}
             md={3}
             sx={{ display: "flex", justifyContent: "center" }}
           >
@@ -190,17 +193,19 @@ function Search(prop) {
               variant="contained"
               color="primary"
               startIcon={
-                <AiOutlineSearch style={{ color: "white", fontSize: "2rem" }} />
+                <AiOutlineSearch
+                  style={{ color: "white", fontSize: "1.5rem" }}
+                />
               }
               sx={{
-                padding: "15px 30px",
+                padding: { xs: "10px 20px", sm: "15px 30px" },
                 borderRadius: "10px",
                 backgroundColor: "blue",
                 "&:hover": {
                   backgroundColor: "blue.300",
                 },
-                fontSize: "1.2rem",
-                width: "80%",
+                fontSize: "1rem",
+                width: { xs: "100%", sm: "80%" },
               }}
               onClick={() => handleSearch()}
             >

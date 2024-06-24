@@ -95,6 +95,14 @@ export const deletePost = (id) => {
   });
 };
 
+export const deletePostByEmployee = (id) => {
+  return API.delete(`/api/user/employee/jobs/${id}`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("userToken")}`,
+    },
+  });
+};
+
 export const updatePost = (id, updatedData) => {
   return API.patch(`/api/job/update/${id}`, updatedData, {
     headers: {
@@ -123,6 +131,18 @@ export const validateJobApplication = (jobOfferId, candidateId) => {
   return API.post(
     `/api/job/validate-job-application/${jobOfferId}`,
     { candidateId },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("userToken")}`,
+      },
+    }
+  );
+};
+
+export const rejectJobApplication = (id) => {
+  return API.post(
+    `api/user/recruiter/application/reject/${id}`,
+
     {
       headers: {
         authorization: `Bearer ${localStorage.getItem("userToken")}`,

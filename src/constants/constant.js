@@ -1,26 +1,3 @@
-const navBarItemsContent = [
-  {
-    iconType: "dashboard",
-    content: "Dashboard",
-    route: "/recruiter-dashboard",
-  },
-  {
-    iconType: "home",
-    content: "Accueil",
-    route: "/",
-  },
-  {
-    iconType: "settings",
-    content: "Paramètres",
-    route: "/recruiter-dashboard/setting",
-  },
-  {
-    iconType: "logout",
-    content: "Logout",
-    route: "/logout",
-  },
-];
-
 const secondNavBarItemsContent = [
   {
     iconType: "dashboard",
@@ -39,9 +16,9 @@ const secondNavBarItemsContent = [
   },
   {
     iconType: "logout",
-    content: "Logout",
+    content: "Déconnexion",
     route: "/logout",
   },
 ];
 
-export { navBarItemsContent, secondNavBarItemsContent };
+export { secondNavBarItemsContent };

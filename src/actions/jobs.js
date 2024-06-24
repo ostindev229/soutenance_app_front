@@ -2,7 +2,6 @@ import * as api from "../api/index.js";
 import { setPostsInState } from "../reducers/jobsReducer.js";
 import { deletePostInState } from "../reducers/jobsReducer.js";
 import { updatePostInState } from "../reducers/jobsReducer.js";
-import { toast } from "react-toastify";
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -77,14 +76,21 @@ export const deletePostById = (id) => async (dispatch) => {
   }
 };
 
+export const deletePostByEmployeeAction = async (id) => {
+  try {
+    const response = await api.deletePostByEmployee(id);
+    return response;
+  } catch (error) {
+    console.error("Error deleting post:", error);
+  }
+};
+
 export const updatePost = (id, updatedData) => async (dispatch) => {
   try {
     const response = await api.updatePost(id, updatedData);
     dispatch(updatePostInState(response.data));
-    toast.success("L'offre a été modifiée avec succès");
   } catch (error) {
     console.error("Failed to update post: ", error);
-    toast.error("Erreur lors de la mise à jour de l'offre");
   }
 };
 

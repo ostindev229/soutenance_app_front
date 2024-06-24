@@ -1,14 +1,17 @@
 import { useState, useRef } from "react";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import { verifyOTP } from "../api";
-import { useDispatch } from "react-redux";
 import { setUserInState } from "../reducers/userReducers";
 import useRedirectToRightUserDahboard from "../hooks/useRedirectToRightUserDahboard";
+import Toast from "./Toast";
+import { toast } from "sonner";
+import { FaSpinner } from "react-icons/fa";
+import { resendOtpAction } from "../actions/auth";
 
 function VerifOtp() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const inputRefs = [
     useRef(null),
     useRef(null),
@@ -26,6 +29,10 @@ function VerifOtp() {
   console.log(phoneNumber);
 
   const handleChange = (index, value) => {
+    if (!/^[0-9]$/.test(value) && value !== "") {
+      return;
+    }
+
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -35,13 +42,30 @@ function VerifOtp() {
     }
   };
 
+  const handleResendOtp = () => {
+    resendOtpAction(phoneNumber);
+    toast(<Toast type="success" message="Nouveau code envoyé." />);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (otp.includes("")) {
+      setMessage("Tous les champs doivent être remplis.");
+      toast(<Toast type="error" message="Veuillez remplir tous les champs." />);
+      return;
+    }
+    setIsLoading(true);
     try {
       const response = await verifyOTP(phoneNumber, otp.join(""));
       if (response.status === 200) {
         const newUser = { ...user, isVerified: true };
         dispatch(setUserInState(newUser));
+        toast(
+          <Toast
+            type="success"
+            message="Compte vérifié! Vous êtes connectés!"
+          />
+        );
 
         navigateToRightUserDashboard(newUser);
 
@@ -54,51 +78,79 @@ function VerifOtp() {
       setMessage(
         "Une erreur s'est produite lors de la vérification de l'OTP. Veuillez réessayer."
       );
+      toast(<Toast type="error" message="Vérification échouée!" />);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   const getUserToken = localStorage.getItem("userToken");
 
   return getUserToken && !user.isVerified ? (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="max-w-md mx-auto text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">
-        <header className="mb-8">
-          <h1 className="text-2xl font-bold mb-1">Mobile Phone Verification</h1>
-          <p className="text-[15px] text-slate-500">
-            Enter the 6-digit verification code that was sent to your phone
-            number.
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="max-w-lg mx-auto text-center bg-white px-6 sm:px-10 py-12 rounded-xl shadow-lg">
+        <div className="flex items-center ">
+          <img
+            src="https://job-board.dexignzone.com/react/demo/favicon.ico"
+            alt="Logo"
+            className="w-10 h-10 mr-2"
+          />
+          <h1 className="text-[25px]">
+            <span className="text-blue-600">
+              <strong>Job</strong>
+            </span>
+            <span className="text-black">
+              <strong>Benin</strong>
+            </span>
+          </h1>
+        </div>
+        <header className="mb-10">
+          <p className="text-lg text-slate-500">
+            Saisissez le code de vérification à 6 chiffres qui a été envoyé à
+            votre numéro de téléphone.
           </p>
         </header>
         <form id="otp-form" onSubmit={handleSubmit}>
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-4">
             {otp.map((value, index) => (
               <input
                 key={index}
                 ref={inputRefs[index]}
                 type="text"
-                className="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                className="w-16 h-16 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 maxLength={1}
                 value={value}
                 onChange={(e) => handleChange(index, e.target.value)}
+                disabled={isLoading}
               />
             ))}
           </div>
-          <div className="max-w-[260px] mx-auto mt-4">
+          <div className="max-w-xs mx-auto mt-6">
             <button
               type="submit"
-              className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150"
+              className="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-150"
+              disabled={isLoading}
             >
-              Verify Account
+              {isLoading ? (
+                <>
+                  <FaSpinner className="animate-spin mr-2" />
+                  Vérification...
+                </>
+              ) : (
+                "Vérifier"
+              )}
             </button>
           </div>
         </form>
-        <div className="text-sm text-slate-500 mt-4">{message}</div>
-        <div className="text-sm text-slate-500 mt-4">
-          Didnt receive code?{" "}
+        <div className="text-lg text-slate-500 mt-6">{message}</div>
+        <div className="text-lg text-slate-500 mt-6">
+          Vous n'avez pas reçu de code?{" "}
           <a
-            className="font-medium text-indigo-500 hover:text-indigo-600"
+            onClick={handleResendOtp}
+            className="font-medium text-indigo-600 hover:text-indigo-700"
             href="#0"
           >
-            Resend
+            Renvoyer
           </a>
         </div>
       </div>

@@ -3,7 +3,9 @@ import "../index.css";
 const CustomLoader = () => {
   return (
     <>
-      <div className="custom-loader"></div>
+      <div className="flex items-center justify-center h-screen">
+        <div className="loader"></div>
+      </div>
     </>
   );
 };

@@ -25,6 +25,16 @@ export const validateJobApplicationAction = async (jobOfferId, candidateId) => {
   }
 };
 
+export const rejectJobApplicationAction = async (id) => {
+  try {
+    const response = await api.rejectJobApplication(id);
+
+    return response.data;
+  } catch (error) {
+    return;
+  }
+};
+
 export const getPostulatesByJobOfferId = async (jobOfferId) => {
   return api.fetchPostulatesByJobOfferId(jobOfferId);
 };

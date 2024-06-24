@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 import SignUp from "./components/SignUp";
@@ -22,12 +23,13 @@ const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/" element={<Home />} key="3" />,
     <Route path="/verif-code" element={<VerifOtp />} key="4" />,
+    <Route path="/otp" element={<VerifOtp />} key="4" />,
     <Route path="/signin" element={<Login />} key="5" />,
     <Route path="/recruiter-dashboard" element={<DashboardRecruiter />} key="1">
       <Route path="" element={<Index />} key="6" />
       <Route path="setting" element={<UpdateProfil />} key="6" />
     </Route>,
-    <Route path="/employee-dashboard" element={<DashboardEmployer />} key="1">
+    <Route path="/employee-dashboard" element={<DashboardEmployer />} key="12">
       <Route path="" element={<Form />} key="6" />
 
       <Route path="setting" element={<UpdateProfil />} key="6" />
