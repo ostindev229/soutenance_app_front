@@ -4,6 +4,8 @@ import * as api from "../api/index.js";
 
 // Signup Action
 export const signup = (formData) => {
+  console.log(formData);
+
   return api.signUp(formData);
 };
 // Login Action

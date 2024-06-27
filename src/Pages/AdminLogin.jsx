@@ -33,9 +33,7 @@ const AdminLogin = () => {
     const emptyFields = requiredFields.filter((field) => !formData[field]);
 
     if (emptyFields.length > 0) {
-      const errorMessage = `Please fill in all required fields: ${emptyFields.join(
-        ", "
-      )}.`;
+      const errorMessage = `Remplissez les champs: ${emptyFields.join(", ")}.`;
       setErrors({ general: errorMessage });
       toast(<Toast type="error" message={errorMessage} />);
       return;
@@ -56,7 +54,8 @@ const AdminLogin = () => {
         setLoading(false);
       })
       .catch((error) => {
-        const errorMessage = error.response?.data?.message || "Login failed.";
+        const errorMessage =
+          error.response?.data?.message || "Connexion échoué!.";
         dispatch({
           type: actionTypes.ADMIN_LOGIN_FAILURE,
           payload: { error: error },
@@ -86,12 +85,12 @@ const AdminLogin = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="mb-2 block font-medium text-gray-700">
-                  Username
+                  Nom d'utilisateur
                 </label>
                 <div className="relative">
                   <input
                     name="username"
-                    placeholder="Enter your username"
+                    placeholder="Entrez votre nom d'utilisateur"
                     type="text"
                     value={formData.username}
                     onChange={handleChange}
@@ -108,12 +107,12 @@ const AdminLogin = () => {
               </div>
               <div className="mb-4">
                 <label className="mb-2 block font-medium text-gray-700">
-                  Password
+                  Mot de passe
                 </label>
                 <div className="relative">
                   <input
                     name="password"
-                    placeholder="Enter your password"
+                    placeholder="Entrez votre mot de passe"
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -144,7 +143,7 @@ const AdminLogin = () => {
                 {loading ? (
                   <CircularProgress size={24} color="inherit" />
                 ) : (
-                  "Login"
+                  "Connexion"
                 )}
               </Button>
             </form>

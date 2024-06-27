@@ -104,7 +104,7 @@ const Navbar = (prop) => {
                         className="w-full px-4 py-2 -ml-4 text-white bg-blue-600 rounded-md dark:text-gray-300 hover:bg-blue-700 focus:bg-blue-700 focus:outline-none flex items-center justify-center transition duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <AiOutlineLogin className="mr-2" />
-                        <span className="font-bold">Login</span>
+                        <span className="font-bold">Connexion</span>
                       </Link>
 
                       <Link
@@ -112,7 +112,7 @@ const Navbar = (prop) => {
                         className="w-full px-4 py-2 -ml-4 text-white bg-blue-600 rounded-md dark:text-gray-300 hover:bg-blue-700 focus:bg-blue-700 focus:outline-none flex items-center justify-center mt-3 transition duration-300 ease-in-out transform hover:-translate-y-1"
                       >
                         <AiOutlineUserAdd className="mr-2" />
-                        <span className="font-bold">Signup</span>
+                        <span className="font-bold">S'inscrire</span>
                       </Link>
 
                       <Link
@@ -135,7 +135,7 @@ const Navbar = (prop) => {
           <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
             {isLoggedIn ? (
               <>
-                <li className="mr-3 nav__item">
+                <li className="mr-3 nav__item hov">
                   <Link
                     to="/employee-dashboard"
                     className="inline-flex items-center px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1"
@@ -144,7 +144,7 @@ const Navbar = (prop) => {
                     Dashboard
                   </Link>
                 </li>
-                <li className="mr-3 nav__item">
+                <li className="mr-3 nav__item hov">
                   <button
                     onClick={handleLogout}
                     className="inline-flex items-center px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1"
@@ -156,25 +156,25 @@ const Navbar = (prop) => {
               </>
             ) : (
               <>
-                <li className="mr-3 nav__item">
+                <li className="mr-3 nav__item hov">
                   <Link
                     to="/signin"
                     className="inline-flex items-center px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1"
                   >
                     <AiOutlineLogin className="mr-2" />
-                    Login
+                    Connexion
                   </Link>
                 </li>
-                <li className="mr-3 nav__item">
+                <li className="mr-3 nav__item hov">
                   <Link
                     to="/signup"
                     className="inline-flex items-center px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1"
                   >
                     <AiOutlineUserAdd className="mr-2" />
-                    Signup
+                    S'inscrire
                   </Link>
                 </li>
-                <li className="mr-3 nav__item">
+                <li className="mr-3 nav__item hov">
                   <Link
                     to="/admin"
                     className="inline-flex items-center px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1"

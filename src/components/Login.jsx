@@ -142,7 +142,7 @@ const Login = () => {
                 <div className="relative">
                   <PhoneInput
                     name="phoneNumber"
-                    placeholder="Enter phone number"
+                    placeholder="Entrez votre numéro de téléphone"
                     international
                     defaultCountry=""
                     countries={[
@@ -178,12 +178,12 @@ const Login = () => {
               </div>
               <div className="mb-4">
                 <label className="mb-2 block font-medium text-gray-700">
-                  Password
+                  Mot de Passe
                 </label>
                 <div className="relative">
                   <input
                     name="password"
-                    placeholder="Enter your password"
+                    placeholder="Entrez votre mot de passe"
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -213,14 +213,14 @@ const Login = () => {
                 {loading ? (
                   <CircularProgress size={24} color="inherit" />
                 ) : (
-                  "Login"
+                  "CONNEXION"
                 )}
               </Button>
               <div className="mt-6 text-center">
                 <p>
-                  Don’t have an account?{" "}
+                  Vous n'avez pas de compte?{" "}
                   <Link to="/signup" className="text-primary">
-                    Sign Up
+                    S'inscrire
                   </Link>
                 </p>
               </div>

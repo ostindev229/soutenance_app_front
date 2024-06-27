@@ -5,7 +5,7 @@ import recruiter from "../assets/recruiter.jpg";
 const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+
   padding: 20px;
   background-color: #f9f9f9;
   min-height: 100vh;
@@ -18,11 +18,16 @@ const Content = styled.div`
   padding: 40px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 100%;
-  max-width: 1600px;
+  height: 550px;
 
   @media (min-width: 768px) {
     flex-direction: row;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    height: 100%;
+    display: block;
   }
 `;
 
@@ -80,7 +85,7 @@ const UserDescription2 = () => {
             </svg>
             <span></span>
 
-            <p>
+            <p className="text-black">
               "Bienvenue sur notre plateforme ! En tant que recruteur, vous avez
               le pouvoir de créer, modifier et supprimer des offres d'emploi
               après vous être connecté à votre compte. Consultez facilement les
@@ -88,8 +93,7 @@ const UserDescription2 = () => {
               celles qui correspondent à vos critères. Pour chaque candidature
               validée, vous pourrez contacter directement les candidats via
               WhatsApp pour planifier les prochaines étapes, que ce soit un
-              entretien ou une rencontre. Pour toute assistance supplémentaire,
-              notre équipe de support est à votre disposition."
+              entretien ou une rencontre."
             </p>
           </blockquote>
         </Description>

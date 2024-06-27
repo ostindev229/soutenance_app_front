@@ -58,21 +58,31 @@ const SignUp = () => {
 
     signup(formData)
       .then((res) => {
-        toast(<Toast type="success" message="Compte crée avec succès" />);
-        dispatch({
-          type: actionTypes.SIGNUP_SUCCESS,
-          payload: res.data,
-        });
+        console.log(res.status);
 
-        setLoading(false);
-        navigate("/signin");
+        if (res.status === 200 || res.status === 201) {
+          dispatch({
+            type: actionTypes.SIGNUP_SUCCESS,
+            payload: res.data,
+          });
+          toast(<Toast type="success" message="Compte crée avec succès" />);
+
+          setLoading(false);
+          navigate("/signin");
+        }
       })
       .catch((error) => {
         dispatch({
           type: actionTypes.SIGNUP_FAILURE,
           payload: { error: error.response.data.errors },
         });
-        toast.error("Signup failed");
+        toast(
+          <Toast
+            type="error"
+            message="Un numéro de téléphone est déja asssocié à ce compte"
+          />
+        );
+
         setLoading(false);
         setErrors(error.response.data.errors);
       });
@@ -118,7 +128,7 @@ const SignUp = () => {
                     <input
                       type="email"
                       name="email"
-                      placeholder="Enter your email"
+                      placeholder="Entrez votre email"
                       label="Email"
                       value={formData.email}
                       onChange={handleChange}
@@ -135,7 +145,7 @@ const SignUp = () => {
                     <div className="border border-stroke rounded-lg overflow-hidden">
                       <PhoneInput
                         name="phoneNumber"
-                        placeholder="Enter phone number"
+                        placeholder="Entrez votre numéro de téléphone"
                         international
                         defaultCountry=""
                         countries={[
@@ -164,13 +174,13 @@ const SignUp = () => {
                 </div>
                 <div className="mb-3">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Username
+                    Nom d'utilisateur
                   </label>
                   <div className="relative">
                     <input
                       name="username"
-                      placeholder="Enter your Username"
-                      label="Username"
+                      placeholder="Entrez votre nom d'utilisateur"
+                      label="Nom d'utilisateur"
                       value={formData.username}
                       onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -191,24 +201,25 @@ const SignUp = () => {
                       <FormControlLabel
                         value="recruiter"
                         control={<Radio />}
-                        label="Recruiter"
+                        label="Recruteur"
                       />
                       <FormControlLabel
                         value="employer"
                         control={<Radio />}
-                        label="Employer"
+                        label="Employeur"
                       />
                     </RadioGroup>
                   </FormControl>
                 </div>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Password
+                    Mot de passe
                   </label>
                   <div className="relative">
                     <input
                       name="password"
-                      label="Password"
+                      label="Entrez votre mot de passe"
+                      placeholder="Entrez votre mot de passe"
                       type="password"
                       value={formData.password}
                       onChange={handleChange}
@@ -227,14 +238,14 @@ const SignUp = () => {
                   {loading ? (
                     <CircularProgress size={24} color="inherit" />
                   ) : (
-                    "Create account"
+                    "CRÉER UN COMPTE"
                   )}
                 </Button>
                 <div className="mt-6 text-center">
                   <p>
-                    Don’t have any account?{" "}
+                    Vous avez déja un compte actif?{" "}
                     <Link to="/signin" className="text-primary">
-                      Sign In
+                      Se connecter
                     </Link>
                   </p>
                 </div>

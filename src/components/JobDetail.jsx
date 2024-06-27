@@ -10,6 +10,7 @@ import {
   Image,
   VStack,
   HStack,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import Toast from "./Toast";
 import { toast } from "sonner";
@@ -112,24 +113,18 @@ const JobDetailCard = (prop) => {
   };
 
   return (
-    <Box className="p-8 rounded-2xl shadow-lg bg-white">
+    <Box className="p-8 rounded-2xl shadow-lg bg-white w-full max-w-5xl mx-auto">
       <Flex direction={{ base: "column", md: "row" }} align="center">
-        <Box flexShrink={0}>
+        <Box flexShrink={0} mb={{ base: 6, md: 0 }} mr={{ md: 8 }}>
           <Image
             src={post.selectedFile}
             alt="Company Logo"
-            className="w-40 h-40 rounded-full shadow-md"
-            mr={8}
+            className="w-60 h-60 rounded-full shadow-md"
           />
         </Box>
-        <VStack
-          align="flex-start"
-          spacing={4}
-          mt={{ base: 4, md: 0 }}
-          ml={{ md: 6 }}
-        >
+        <VStack align="flex-start" spacing={4} flex={1}>
           <HStack justify="space-between" align="center" width="100%">
-            <Text as="h1" fontSize="2xl" fontWeight="bold">
+            <Text as="h1" fontSize="3xl" fontWeight="bold">
               {post.category}
             </Text>
             <Flex align="center" color="gray.500">
@@ -140,32 +135,37 @@ const JobDetailCard = (prop) => {
           <Text fontSize="lg" color="gray.500">
             {post.location}
           </Text>
-          <Text fontSize="md" color="gray.600" borderTop="2px" pt={4}>
-            {post.description}
-          </Text>
-          <Box spaceY={2}>
-            <Text fontSize="lg" fontWeight="bold">
-              Compétences recherchées:{" "}
-              <Text as="span" fontWeight="normal">
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} width="100%">
+            <Box>
+              <Text fontSize="lg" fontWeight="bold">
+                Compétences recherchées
+              </Text>
+              <Text fontSize="md" color="gray.600">
                 {post.competenceSearch}
               </Text>
-            </Text>
-            <Text fontSize="lg" fontWeight="bold">
-              Type de temps:{" "}
-              <Text as="span" fontWeight="normal">
-                {post.typeTemps}
+            </Box>
+            <Box>
+              <Text fontSize="lg" fontWeight="bold">
+                Description
               </Text>
-            </Text>
-            <Text fontSize="lg" fontWeight="bold">
-              Participants totaux:{" "}
-              <Text as="span" fontWeight="normal">
+              <Text fontSize="md" color="gray.600">
+                {post.description}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontSize="lg" fontWeight="bold">
+                Participants totaux
+              </Text>
+              <Text fontSize="md" color="gray.600">
                 {post.totalParticipate}
               </Text>
-            </Text>
+            </Box>
+          </SimpleGrid>
+          <Box width="100%" textAlign="center" mt={4}>
+            {handleDisplayRightButton()}
           </Box>
-          {handleDisplayRightButton()}
           {prop.isRecruiter && (
-            <HStack spacing={4} mt={4}>
+            <HStack spacing={4} mt={4} width="100%" justify="center">
               <Button
                 colorScheme="blue"
                 onClick={handleUpdateClick}

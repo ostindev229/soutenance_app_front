@@ -15,6 +15,7 @@ import { searchJobByValue } from "../actions/jobs";
 
 import { AiOutlineCloseCircle, AiOutlineSearch } from "react-icons/ai";
 import { CiLocationOn } from "react-icons/ci";
+import { FaRedo } from "react-icons/fa";
 
 function Search(prop) {
   const [category, setCategory] = React.useState("");
@@ -25,13 +26,16 @@ function Search(prop) {
     setTypeTemps(event.target.value);
   };
 
-  const handleClear = (setter) => () => {
-    setter("");
-  };
-
   const handleSearch = async () => {
     const posts = await searchJobByValue(category, typeTemps, location);
     prop.setJobs(posts);
+  };
+
+  const handleClear = () => {
+    setCategory("");
+    setTypeTemps("");
+    setLocation("");
+    prop.researchPost();
   };
 
   return (
@@ -71,11 +75,11 @@ function Search(prop) {
                 variant="standard"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="Search Job By Category..."
+                placeholder="Rechercher un emploi par catégorie..."
                 InputProps={{
                   endAdornment: category && (
                     <IconButton
-                      onClick={handleClear(setCategory)}
+                      onClick={() => setCategory(() => "")}
                       sx={{ position: "absolute", right: 0 }}
                     >
                       <AiOutlineCloseCircle
@@ -125,7 +129,7 @@ function Search(prop) {
                 >
                   <MenuItem value="" disabled>
                     <span style={{ color: "rgba(0, 0, 255, 0.4)" }}>
-                      Search By Job Type...
+                      Rechercher par type...
                     </span>
                   </MenuItem>
                   <MenuItem value="full-time">full-time</MenuItem>
@@ -134,7 +138,7 @@ function Search(prop) {
               </FormControl>
               {typeTemps && (
                 <IconButton
-                  onClick={handleClear(setTypeTemps)}
+                  onClick={() => setTypeTemps(() => "")}
                   sx={{ position: "absolute", right: 0 }}
                 >
                   <AiOutlineCloseCircle
@@ -164,11 +168,11 @@ function Search(prop) {
                 variant="standard"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                placeholder="Search By Location..."
+                placeholder="Rechercher par emplacement..."
                 InputProps={{
                   endAdornment: location && (
                     <IconButton
-                      onClick={handleClear(setLocation)}
+                      onClick={() => setLocation(() => "")}
                       sx={{ position: "absolute", right: 0 }}
                     >
                       <AiOutlineCloseCircle
@@ -209,10 +213,19 @@ function Search(prop) {
               }}
               onClick={() => handleSearch()}
             >
-              Search
+              RECHERCHER
             </Button>
           </Grid>
         </Grid>
+        <button
+          onClick={handleClear}
+          type="button"
+          className="m-10 bg-blueColor text-center   hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition duration-300 flex items-center p-8 justify-center"
+        >
+          <span> Réinitialisé la liste des offres </span>
+          <span> </span>
+          <FaRedo className="mr-2" />
+        </button>
       </Paper>
     </Box>
   );

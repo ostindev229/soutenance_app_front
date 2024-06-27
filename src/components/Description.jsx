@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import recruiter from "../assets/recruiter.jpg";
 
 const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+
   padding: 20px;
   background-color: #f9f9f9;
-  height: 100vh;
-  flex-wrap: wrap;
+  min-height: 100vh;
 `;
 
 const Content = styled.div`
@@ -19,13 +17,16 @@ const Content = styled.div`
   padding: 40px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 100%;
-  max-width: 700px;
-  margin: 20px;
+  height: 550px;
 
   @media (min-width: 768px) {
     flex-direction: row;
-    max-width: 800px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    height: 100%;
+    display: block;
   }
 `;
 
@@ -83,7 +84,7 @@ const UserDescription = () => {
             </svg>
             <span></span>
 
-            <p>
+            <p className="text-black">
               "Bienvenue sur notre plateforme ! Vous pouvez consulter les offres
               d'emploi après vous être connecté à votre compte. Utilisez les
               filtres pour affiner vos recherches et postulez directement en
@@ -92,8 +93,7 @@ const UserDescription = () => {
               candidatures. En cas de succès ou d'échec, vous recevrez une
               notification par email. Pour les candidatures réussies, un
               représentant vous contactera via WhatsApp pour planifier la suite
-              des démarches. Utilisez notre service de support client pour toute
-              question."
+              des démarches."
             </p>
           </blockquote>
         </Description>
@@ -102,37 +102,6 @@ const UserDescription = () => {
             src="https://th.bing.com/th/id/OIG1.wJEfBipSP0A2Q.jUE3Fh?pid=ImgGn"
             alt="Styled Image"
           />
-        </ImageWrapper>
-      </Content>
-      <Content>
-        <Description>
-          <blockquote className="text-xl italic font-semibold text-gray-900 dark:text-white">
-            <svg
-              className="w-8 h-8 text-gray-400 dark:text-gray-600 mb-4"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 18 14"
-            >
-              <path d="M6 0H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3H2a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v1a3 3 0 0 1-3 3h-1a1 1 0 0 0 0 2h1a5.006 5.006 0 0 0 5-5V2a2 2 0 0 0-2-2Z" />
-            </svg>
-            <span></span>
-
-            <p>
-              "Bienvenue sur notre plateforme ! En tant que recruteur, vous avez
-              le pouvoir de créer, modifier et supprimer des offres d'emploi
-              après vous être connecté à votre compte. Consultez facilement les
-              candidatures reçues pour les postes que vous avez créés et validez
-              celles qui correspondent à vos critères. Pour chaque candidature
-              validée, vous pourrez contacter directement les candidats via
-              WhatsApp pour planifier les prochaines étapes, que ce soit un
-              entretien ou une rencontre. Pour toute assistance supplémentaire,
-              notre équipe de support est à votre disposition."
-            </p>
-          </blockquote>
-        </Description>
-        <ImageWrapper>
-          <StyledImage src={recruiter} alt="Styled Image" />
         </ImageWrapper>
       </Content>
     </Container>

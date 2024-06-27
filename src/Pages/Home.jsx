@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
@@ -9,6 +9,7 @@ import { getAllPosts } from "../actions/jobs";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import UserDescription from "../components/Description";
+import UserDescription2 from "../components/Description2";
 
 import Footer from "../components/Footer";
 import Loader from "../components/Loader"; // Import the Loader component
@@ -61,7 +62,7 @@ function Home() {
     setError(null);
     const fetchData = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 3000)); // Ensure loader shows for at least 3 seconds
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Ensure loader shows for at least 3 seconds
         await dispatch(getAllPosts());
         setLoading(false);
       } catch (err) {
@@ -72,13 +73,21 @@ function Home() {
     fetchData();
   }, [dispatch, refresh]);
 
+  const researchPost = () => {
+    setPosts(() => []);
+  };
+
   return (
     <div>
       <Navbar setRefresh={setRefresh} />
 
       <AnimatedSection>
-        <Search setJobs={(searchedJob) => setPosts(() => [...searchedJob])} />
+        <Search
+          setJobs={(searchedJob) => setPosts(() => [...searchedJob])}
+          researchPost={researchPost}
+        />
       </AnimatedSection>
+
       <AnimatedSection>
         <div className="text-center my-8">
           <h2 className="text-3xl font-bold text-blue-600">
@@ -110,7 +119,10 @@ function Home() {
       </AnimatedSection>
 
       <AnimatedSection>
-        <UserDescription />
+        <div className=" block md:flex bg-blueColor ">
+          <UserDescription />
+          <UserDescription2 />
+        </div>
       </AnimatedSection>
 
       <Footer />
