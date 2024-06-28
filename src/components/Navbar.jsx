@@ -150,7 +150,7 @@ const Navbar = (prop) => {
                     className="inline-flex items-center px-4 py-2 text-lg font-bold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:-translate-y-1"
                   >
                     <AiOutlineLogout className="mr-2" />
-                    Logout
+                    Déconnexion
                   </button>
                 </li>
               </>

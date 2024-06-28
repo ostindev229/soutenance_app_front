@@ -2,12 +2,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPostsForVerif, updateJobStatus } from "../actions/jobs";
 import { updatePostInState } from "../reducers/jobsReducer";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import Toast from "../components/Toast";
 
 const Verification = () => {
   const posts = useSelector((state) => state.posts.posts);
   console.log(posts);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+
+    toast(<Toast type="success" message="Vous ètes déconnectés!" />);
+    navigate("/", true);
+  };
 
   useEffect(() => {
     dispatch(getAllPostsForVerif());
@@ -27,6 +36,9 @@ const Verification = () => {
       <div className="py-8 flex-grow">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-4xl font-semibold leading-tight">Ma Table</h2>
+          <button className="bg-blueColor text-white" onClick={handleLogout}>
+            Se Déconnecté
+          </button>
         </div>
         <div className="flex-grow flex flex-col">
           <div className="overflow-x-auto">
